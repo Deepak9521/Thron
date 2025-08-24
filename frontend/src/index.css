@@ -1,0 +1,121 @@
+/* index.css - already done earlier */
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.post-card {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  background-color: #fafafa;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.button.primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.button.primary:hover {
+  background-color: #2980b9;
+}
+
+.button.danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.button.danger:hover {
+  background-color: #c0392b;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: #777;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.profile-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: #777;
+}
+.create-post-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.create-post-box textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: none;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.create-post-box button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.create-post-box button:hover {
+  background-color: #1d4ed8;
+}
