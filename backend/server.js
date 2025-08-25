@@ -57,13 +57,25 @@ if (NODE_ENV === 'production') {
 }
 
 // MongoDB Connect
+console.log("Attempting to connect to MongoDB...");
+console.log("MongoDB URI:", process.env.MONGO_URI);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
-    app.listen(PORT, () => {
+    console.log("Starting server...");
+    
+    const server = app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌍 Environment: ${NODE_ENV}`);
       console.log(`📱 API available at http://localhost:${PORT}/api`);
+      
+      // Verify server is actually listening
+      const address = server.address();
+      console.log("Server address:", address);
+    }).on('error', (err) => {
+      console.error("❌ Server failed to start:", err);
+      process.exit(1);
     });
   })
   .catch(err => {

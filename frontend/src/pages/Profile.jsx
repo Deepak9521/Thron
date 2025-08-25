@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import '../App.css';
 
 function Profile() {
@@ -12,7 +12,7 @@ function Profile() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+        const res = await apiClient.get(`/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(res.data.user);

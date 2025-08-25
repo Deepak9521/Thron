@@ -7,11 +7,11 @@ services:
     container_name: socialmedia_mongodb
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: socialmediaapp
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-password123}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-socialmediaapp}
     ports:
-      - "27017:27017"
+      - "${MONGO_PORT:-27017}:27017"
     volumes:
       - mongodb_data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
@@ -26,15 +26,17 @@ services:
       target: production
     container_name: socialmedia_backend
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
-      NODE_ENV: production
-      PORT: 5000
-      MONGO_URI: mongodb://admin:password123@mongodb:27017/socialmediaapp?authSource=admin
-      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
-      JWT_EXPIRE: 24h
-      CORS_ORIGIN: false
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${PORT:-5000}
+      MONGO_URI: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-password123}@mongodb:27017/${MONGO_DATABASE:-socialmediaapp}?authSource=admin
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-this-in-production}
+      JWT_EXPIRE: ${JWT_EXPIRE:-24h}
+      CORS_ORIGIN: ${CORS_ORIGIN:-false}
     ports:
-      - "5000:5000"
+      - "${PORT:-5000}:${PORT:-5000}"
     depends_on:
       - mongodb
     networks:
@@ -49,10 +51,12 @@ services:
       dockerfile: Dockerfile.dev
     container_name: socialmedia_frontend
     restart: unless-stopped
+    env_file:
+      - frontend/.env
     environment:
-      VITE_API_URL: http://localhost:5000/api
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:5000/api}
     ports:
-      - "5173:5173"
+      - "${FRONTEND_PORT:-5173}:5173"
     depends_on:
       - backend
     networks:

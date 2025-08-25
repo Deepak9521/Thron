@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -18,8 +18,8 @@ function Home() {
 
   // Fetch posts
   useEffect(() => {
-    axios
-      .get('http://localhost:5000/api/posts', {
+    apiClient
+      .get('/posts', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setPosts(res.data))
@@ -31,8 +31,8 @@ function Home() {
     if (!content.trim()) return;
 
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/posts/create',
+      const res = await apiClient.post(
+        '/posts/create',
         { content },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -46,8 +46,8 @@ function Home() {
 
   const handleLike = async (postId) => {
     try {
-      const res = await axios.put(
-        `http://localhost:5000/api/posts/${postId}/like`,
+      const res = await apiClient.put(
+        `/posts/${postId}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,8 +65,8 @@ function Home() {
     if (!commentText[postId]?.trim()) return;
 
     try {
-      const res = await axios.post(
-        `http://localhost:5000/api/posts/${postId}/comment`,
+      const res = await apiClient.post(
+        `/posts/${postId}/comment`,
         { text: commentText[postId] },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -85,7 +85,7 @@ function Home() {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+      await apiClient.delete(`/posts/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPosts((prev) => prev.filter((post) => post._id !== postId));
